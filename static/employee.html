@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <style>
+        ul{
+            list-style-type: none;
+            overflow: hidden;
+            background-color:rgb(255, 255, 255);
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            float:left;
+            border-right: 2px solid rgb(255, 255, 255);
+        }
+        li:last-child{
+            border-right: none;
+        }
+        li button{
+            display: block;
+            color:rgb(207, 13, 13);
+            font-size: medium;
+            text-align: center;
+            padding: 15px 10px;
+        }
+        li button:hover:not(.active){
+            background-color: rgb(92, 81, 245);
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+
+<body class="container-fluid" style="padding: 20px;" onload="checkSessions()">
+        <div class="manager">
+            <div class="row">
+                <div>
+                    <h1 style="text-align: center; padding: 30px; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; background-color: rgb(255, 255, 255);"><em>Welcome to the Employee Reimbursement System</em></h1>
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"><strong>Employee ID: </strong></span>
+                    <span id="userId" ></span><br>
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"><strong>Employee Name: </strong></span>
+                    <span id="userName" style="width: 12px;"><strong></strong></span><br>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="col-sm manager">
+            <div class="row">
+                <ul> 
+                    <li><button id="allReimButton" class="btn btn-info" hidden=true>All Reimbursements</button></li>
+                    <li><button id="allPendingReimButton" class="btn btn-info" hidden=true>All Pending Reimbursements</button></li>
+                    <li><button id="myReimButton" class="btn btn-info" hidden=true>My Reimbursements</button></li>
+                    <li><button id="submitNewReimButton" class="btn btn-success" hidden=true>Submit New Reimbursement</button></li>
+                    <li style="float:right"><button id="logoutButton" class="btn btn-danger">Logout</button></li>
+                </ul>
+            </div>
+        </div>
+        <br>
+       
+        <div id="allreimtable" class="col-sm manager"  hidden = true>
+            <div class="row">
+                <table class="table table-dark table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-1">Reimbursement ID</th>
+                            <th class="col-sm-1">Amount</th>
+                            <th class="col-sm-1.5">Submitted Time</th>
+                            <th class="col-sm-1.5">Resolved Time</th>
+                            <th class="col-sm-2">Description</th>
+                            <th class="col-sm-1.5">Author Name</th>
+                            <th class="col-sm-1.5">Resolver Name</th>
+                            <th class="col-sm-1">Status</th>
+                            <th class="col-sm-1">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allReimListBody">
+    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <!-- This is for pending reim div -->
+        <div id="pendingtable" class="col-sm manager" hidden = true>
+            <div class="row">
+                <table class="table table-dark table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-1">Reimbursement ID</th>
+                            <th class="col-sm-1">Amount</th>
+                            <th class="col-sm-1.5">Submitted Time</th>
+                            <th class="col-sm-1.5">Author Name</th>
+                            <th class="col-sm-1">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allPendingListBody">
+    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <!-- This is for single all reim list -->
+        <div id="singleReimListtable" class="col-sm manager" hidden = true>
+            <div class="row">
+                <table class="table table-dark table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-1">Reimbursement ID</th>
+                            <th class="col-sm-1">Amount</th>
+                            <th class="col-sm-1.5">Submitted Time</th>
+                            <th class="col-sm-2">Description</th>
+                            <th class="col-sm-1.5">Author Name</th>
+                            <th class="col-sm-1">Status</th>
+                            <th class="col-sm-1">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allMyReimListBody">
+    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+    
+        <div id="reimLookup" class="manager" hidden=true>
+            <div class="row">
+                <form class="form-control">
+                    <label for="reimRequestId">Reimbursement Lookup:</label>
+                    <input type="number" id="reimRequest" placeholder="Reimbursement ID" name="reimRequestId">
+                </form>
+            </div>
+            <br>
+            <button class="btn btn-warning" id="getOneReim">Search for Reimbursement</button>
+        </div>
+        <br>
+    
+
+        <div id="onereimtable" class="manager" hidden=true>
+            <div class="row">
+                <table class="table table-dark table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-1">Reimbursement ID</th>
+                            <th class="col-sm-1">Amount</th>
+                            <th class="col-sm-1">Submitted Time</th>
+                            <th class="col-sm-1">Resolved Time</th>
+                            <th class="col-sm-2">Description</th>
+                            <th class="col-sm-1">Author Name</th>
+                            <th class="col-sm-1">Resolver Name</th>
+                            <th class="col-sm-1">Status</th>
+                            <th class="col-sm-1">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="getOneReimBody">
+                    </tbody>  
+                </table>
+                <p class="col-lg-12" id="reimInfo"><strong>Please select action</strong></p>
+            </div>
+            <button class="btn btn-success" id="approve">Approve</button>
+            <button class="btn btn-danger" id="deny">Deny</button>
+        </div>
+        <br>
+
+        <div id="addNewReim" class="manager" hidden=true>
+            <div class="row">
+                <form id="addNewReimForm" class="form-control">
+                    <label for="reimAmount">Amount:</label>
+                    <input type="number" step="0.01" id="reimAmount" name="reimAmount"><br>
+                    <label for="reimDescription">Desctription:</label>
+                    <input type="text" id="reimDescription" name="reimDescription"><br>
+                    <label for="reimTypeId">Type</label>
+                    <input type="number" id="reimTypeId" name="reimTypeId">
+                    <p class="col-lg-12" id="typeOption" style="text-align: left;">Please Enter: 1.Lodging, 2.Travel, 3.Food, or 4.Other.</p>
+                </form>
+            </div>
+            <button class="btn btn-primary" id="addReimButton">Submit Your Reimbursement</button>
+        </div>
+
+    <script src="employee.js"></script>
+</body>
+</html>
