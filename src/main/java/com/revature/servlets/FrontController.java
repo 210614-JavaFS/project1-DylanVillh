@@ -44,14 +44,15 @@ public class FrontController extends HttpServlet{
 		switch(UrlSections[0]) {
 			case "login":
 				if (request.getMethod().equals("POST")) {
-					if(userController.checkUser(request, response)) {
+					if(userController.checkUser(request, response)) {						
+						System.out.println("User Login is successful");	
+						String username = session.getAttribute("username").toString();
+						User user = userDAO.findByUserName(username);
+						String json = objectMapper.writeValueAsString(user);
+						response.getWriter().print(json);
 						
-						System.out.println("User Login is successful");
-						
-					}else {
-						
-						System.out.println("Invalid Login Credential.");
-						
+					}else {					
+						System.out.println("Invalid Login Credential.");					
 					}
 				}
 				break;
@@ -61,37 +62,27 @@ public class FrontController extends HttpServlet{
 				if(session == null) {
 					
 					System.out.println("You are not logged in!");
+				}
 					
-				}else if (session != null) {
-					response.setStatus(201);
-					System.out.println("im logged in hopefully");
 				
 				
 				if (UrlSections.length == 2) {
 					switch(UrlSections[1]) {
 					
-						case "check":
-							String userName = session.getAttribute("userName").toString();
-							User user = userDAO.findByUserName(userName);
+						case "checkemployee":
+							String username = session.getAttribute("username").toString();
+							User user = userDAO.findByUserName(username);
 							System.out.println(user);
 							String json = objectMapper.writeValueAsString(user);
 							response.getWriter().print(json);
 							response.setStatus(201);
 							break;
 					
-						case "allreimbursement":
-							reimbursementController.getAllReimbursement(response);
-							break;
-							
-						case "pendingreimbursement":
-							reimbursementController.getPendingReimbursement(response);
-							break;
-							
-						case "userreimbursment":
-							userName = session.getAttribute("userName").toString();
-							User newUser = userDAO.findByUserName(userName);
-							int nameId = newUser.getUserId();
-							reimbursementController.getReimbursementByAuthor(response, nameId);
+						case "userreimbursments":
+							username = session.getAttribute("username").toString();
+							User currentUser= userDAO.findByUserName(username);
+							int userId = currentUser.getUserId();
+							reimbursementController.getReimbursementByAuthor(response, userId);
 							break;
 							
 						case "addreimbursement":
@@ -101,31 +92,60 @@ public class FrontController extends HttpServlet{
 						case "logout":
 							session.invalidate();	
 							break;
+		
+					default:
+						break;
 					}
-				}else if (UrlSections.length == 3) {
+				}
+				
+			case "manager":
+				if(session == null) {
+					
+					System.out.println("You are not logged in!");
+				}
+				
+				
+				if (UrlSections.length == 2) {
 					switch(UrlSections[1]) {
 					
-						case "reim":
-							reimbursementController.getReimbursementById(response, Integer.parseInt(UrlSections[2]));
+						case "checkmanager":
+							String username = session.getAttribute("username").toString();
+							User user = userDAO.findByUserName(username);
+							System.out.println(user);
+							String json = objectMapper.writeValueAsString(user);
+							response.getWriter().print(json);
+							response.setStatus(201);
+							break;
+					
+						case "allreimbursements":
+							reimbursementController.getAllReimbursement(response);
 							break;
 							
+						case "pendingreimbursements":
+							reimbursementController.getPendingReimbursement(response);
+							break;
+						
 						case "approve":
-							String userName = session.getAttribute("userName").toString();
-							User manager = userDAO.findByUserName(userName);
+							username = session.getAttribute("username").toString();
+							User manager = userDAO.findByUserName(username);
 							System.out.println(manager);
-							userController.approveReimbursement(response, manager, Integer.parseInt(UrlSections[2]));
+							userController.approveReimbursement(request, response, manager);
 							break;
 							
 						case "deny":
-							userName = session.getAttribute("userName").toString();
-							manager = userDAO.findByUserName(userName);
-							userController.denyReimbursement(response, manager, Integer.parseInt(UrlSections[2]));
+							username = session.getAttribute("username").toString();
+							manager = userDAO.findByUserName(username);
+							userController.denyReimbursement(request, response, manager);
+							break;
+							
+						case "logout":
+							session.invalidate();	
 							break;
 							
 					default:
 						break;
 					}
-				}
+
 			}
 		}
 	}

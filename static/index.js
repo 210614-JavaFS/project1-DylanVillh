@@ -16,8 +16,9 @@ async function userLogin(){
      });
 
      if (response.status === 201){
-         alert("You have successfully logged in.");
-         document.location.href = './employee.html';
+         console.log("You have successfully logged in as an Employee.");
+         console.log(user);      
+        document.location.href = './employee.html';
      }else {
         alert("Login Failed. Please try again.")
         document.location.href = './index.html';
@@ -30,7 +31,7 @@ function getUser(){
     let password = document.getElementById("password").value
 
     let user = {
-        userName:username,
+        username:username,
         password:password
     }
     return user;

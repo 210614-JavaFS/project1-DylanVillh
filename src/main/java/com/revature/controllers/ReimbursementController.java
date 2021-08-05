@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.Reimbursement;
+import com.revature.models.User;
 import com.revature.services.ReimbursementService;
 
 public class ReimbursementController extends HttpServlet{
@@ -21,9 +22,6 @@ public class ReimbursementController extends HttpServlet{
 	public void getAllReimbursement(HttpServletResponse response) throws IOException {
 		List<Reimbursement> list = reimbursementService.getAllReimbursement();
 		String json = objectMapper.writeValueAsString(list);
-		
-		System.out.println(json);
-		
 		response.getWriter().print(json);
 		response.setStatus(200);
 	}
@@ -43,16 +41,7 @@ public class ReimbursementController extends HttpServlet{
 		response.setStatus(200);
 	}
 	
-	public void getReimbursementById(HttpServletResponse response, int reimbId) throws IOException {
-		Reimbursement reimbursement = reimbursementService.getReimbursementById(reimbId);
-		String json = objectMapper.writeValueAsString(reimbursement);
-		response.getWriter().print(json);
-		response.setStatus(200);
-	}
-	
-	
-	public void addReimbursement(HttpServletRequest request, HttpServletResponse response) 
-			throws IOException {
+	public void addReimbursement(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		BufferedReader reader = request.getReader();
 		
 		StringBuilder stringBuilder = new StringBuilder();

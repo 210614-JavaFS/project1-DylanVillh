@@ -18,12 +18,12 @@ public class UserDAOImpl implements UserDAO {
 			
 			try(Connection conn = ConnectionUtil.getConnection()){
 				
-				String sql = "UPDATE ers_reimbursement SET reimb_resolved = CURRENT_TIMSTAMP, reimb_status_id = ?, reimb_resolver = ?"
+				String sql = "UPDATE ers_reimbursement SET reimb_resolved = CURRENT_TIMESTAMP, reimb_status_id = ?, reimb_resolver = ?"
 						+ "WHERE reimb_id = ?;";
 				PreparedStatement statement = conn.prepareStatement(sql);
-				statement.setInt(2, 2);
-				statement.setInt(3, user.getUserId());
-				statement.setInt(4, reimbId);
+				statement.setInt(1, 2);
+				statement.setInt(2, user.getUserId());
+				statement.setInt(3, reimbId);
 				statement.execute();
 
 				return true;
@@ -41,9 +41,9 @@ public class UserDAOImpl implements UserDAO {
 				String sql = "UPDATE ers_reimbursement SET reimb_resolved = CURRENT_TIMESTAMP, reimb_status_id = ?, reimb_resolver = ?"
 						+ "WHERE reimb_id = ?;";
 				PreparedStatement statement = conn.prepareStatement(sql);
-				statement.setInt(2, 3);
-				statement.setInt(3, user.getUserId());
-				statement.setInt(4, reimbId);
+				statement.setInt(1, 3);
+				statement.setInt(2, user.getUserId());
+				statement.setInt(3, reimbId);
 				statement.execute();
 
 				return true;
@@ -92,7 +92,7 @@ public class UserDAOImpl implements UserDAO {
 				User user = new User();
 				
 				if(result.next()) {
-					user.setUserName(result.getString("ers_username"));
+					user.setUsername(result.getString("ers_username"));
 					user.setPassword(result.getString("ers_password"));
 					user.setUserId(result.getInt("ers_users_id"));
 					user.setFirstName(result.getString("user_first_name"));
@@ -113,15 +113,14 @@ public class UserDAOImpl implements UserDAO {
 		@Override
 		public User login(String username, String password) {
 			
-try(Connection conn = ConnectionUtil.getConnection()){
+				try(Connection conn = ConnectionUtil.getConnection()){
 				
-				String sql = "SELECT * FROM ers_users WHERE ers_username = ? AND ers_password =?;";
+				String sql = "SELECT * FROM ers_users WHERE ers_username = ?";
 				PreparedStatement statement = conn.prepareStatement(sql);
 				
 				statement.setString(1, username);
-				statement.setString(2, password);
 				ResultSet result = statement.executeQuery();
-				
+								
 				User user = new User();
 				while(result.next()) {
 					user.setUserId(result.getInt("ers_users_id"));
@@ -130,8 +129,8 @@ try(Connection conn = ConnectionUtil.getConnection()){
 					user.setEmail(result.getString("user_email"));
 					user.setRoleId(result.getInt("user_role_id"));
 					
+					return user;
 				}
-				return user;
 				
 			}catch(SQLException e) {
 				e.printStackTrace();

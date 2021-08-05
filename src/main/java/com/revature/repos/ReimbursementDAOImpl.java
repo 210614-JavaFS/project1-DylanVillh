@@ -32,8 +32,8 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				Reimbursement reimbursement = new Reimbursement();
 				reimbursement.setReimbId(result.getInt("reimb_id"));
 				reimbursement.setReimbAmount(result.getDouble("reimb_amount"));
-				reimbursement.setReimbSubmitted(result.getTimestamp("reimb_submitted"));
-				reimbursement.setReimbResolved(result.getTimestamp("reimb_resolved"));
+				reimbursement.setReimbSubmitted(result.getString("reimb_submitted"));
+				reimbursement.setReimbResolved(result.getString("reimb_resolved"));
 				reimbursement.setReimbDescription(result.getString("reimb_description"));
 				reimbursement.setReimbAuthorId(result.getInt("reimb_author"));
 				reimbursement.setReimbResolverId(result.getInt("reimb_resolver"));
@@ -63,10 +63,10 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			
 			while(result.next()) {
 				Reimbursement reimbursement = new Reimbursement();
-				reimbursement.setReimbId(result.getInt("reim_id"));
-				reimbursement.setReimbAmount(result.getDouble("reim_amount"));
-				reimbursement.setReimbSubmitted(result.getTimestamp("reim_submitted"));
-				reimbursement.setReimbResolved(result.getTimestamp("reim_resolved"));
+				reimbursement.setReimbId(result.getInt("reimb_id"));
+				reimbursement.setReimbAmount(result.getDouble("reimb_amount"));
+				reimbursement.setReimbSubmitted(result.getString("reimb_submitted"));
+				reimbursement.setReimbResolved(result.getString("reimb_resolved"));
 				reimbursement.setReimbDescription(result.getString("reimb_description"));
 				reimbursement.setReimbAuthorId(result.getInt("reimb_author"));
 				reimbursement.setReimbResolverId(result.getInt("reimb_resolver"));
@@ -97,13 +97,11 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			
 			while(result.next()) {
 				Reimbursement reimbursement = new Reimbursement();
-				reimbursement.setReimbId(result.getInt("reim_id"));
-				reimbursement.setReimbAmount(result.getDouble("reim_amount"));
-				reimbursement.setReimbSubmitted(result.getTimestamp("reim_submitted"));
-				reimbursement.setReimbResolved(result.getTimestamp("reim_resolved"));
+				reimbursement.setReimbId(result.getInt("reimb_id"));
+				reimbursement.setReimbAmount(result.getDouble("reimb_amount"));
+				reimbursement.setReimbSubmitted(result.getString("reimb_submitted"));
+				reimbursement.setReimbResolved(result.getString("reimb_resolved"));
 				reimbursement.setReimbDescription(result.getString("reimb_description"));
-				reimbursement.setReimbAuthorId(result.getInt("reimb_author"));
-				reimbursement.setReimbResolverId(result.getInt("reimb_resolver"));
 				reimbursement.setReimbStatusId(result.getInt("reimb_status_id"));
 				reimbursement.setReimbTypeId(result.getInt("reimb_type_id"));
 				list.add(reimbursement);
@@ -130,10 +128,10 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			
 			Reimbursement reimbursement = new Reimbursement();
 			while(result.next()) {
-				reimbursement.setReimbId(result.getInt("reim_id"));
-				reimbursement.setReimbAmount(result.getDouble("reim_amount"));
-				reimbursement.setReimbSubmitted(result.getTimestamp("reim_submitted"));
-				reimbursement.setReimbResolved(result.getTimestamp("reim_resolved"));
+				reimbursement.setReimbId(result.getInt("reimb_id"));
+				reimbursement.setReimbAmount(result.getDouble("reimb_amount"));
+				reimbursement.setReimbSubmitted(result.getString("reimb_submitted"));
+				reimbursement.setReimbResolved(result.getString("reimb_resolved"));
 				reimbursement.setReimbDescription(result.getString("reimb_description"));
 				reimbursement.setReimbAuthorId(result.getInt("reimb_author"));
 				reimbursement.setReimbResolverId(result.getInt("reimb_resolver"));

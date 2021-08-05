@@ -6,15 +6,15 @@ public class Reimbursement {
 	
 	private int reimbId;
 	private double reimbAmount;
-	private Timestamp reimbSubmitted;
-	private Timestamp reimbResolved = null;
+	private String reimbSubmitted;
+	private String reimbResolved = null;
 	private String reimbDescription = null;
 	private int reimbAuthorId;
 	private int reimbResolverId;
 	private int reimbStatusId;
 	private int reimbTypeId;
 	
-	public Reimbursement(int reimbId, double reimbAmount, Timestamp reimbSubmitted, Timestamp reimbResolved,
+	public Reimbursement(int reimbId, double reimbAmount, String reimbSubmitted, String reimbResolved,
 			String reimbDescription, int reimbAuthorId, int reimbResolverId, int reimbStatusId, int reimbTypeId) {
 		super();
 		this.reimbId = reimbId;
@@ -48,20 +48,20 @@ public class Reimbursement {
 		this.reimbAmount = reimbAmount;
 	}
 
-	public Timestamp getReimbSubmitted() {
+	public String getReimbSubmitted() {
 		return reimbSubmitted;
 	}
 
-	public void setReimbSubmitted(Timestamp timestamp) {
-		this.reimbSubmitted = timestamp;
+	public void setReimbSubmitted(String string) {
+		this.reimbSubmitted = string;
 	}
 
-	public Timestamp getReimbResolved() {
+	public String getReimbResolved() {
 		return reimbResolved;
 	}
 
-	public void setReimbResolved(Timestamp timestamp) {
-		this.reimbResolved = timestamp;
+	public void setReimbResolved(String string) {
+		this.reimbResolved = string;
 	}
 
 	public String getReimbDescription() {
@@ -168,6 +168,7 @@ public class Reimbursement {
 				+ ", reimbAuthorId=" + reimbAuthorId + ", reimbResolverId=" + reimbResolverId + ", reimbStatusId="
 				+ reimbStatusId + ", reimbTypeId=" + reimbTypeId + "]";
 	}
+
 	
 	
 	

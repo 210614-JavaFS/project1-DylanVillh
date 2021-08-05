@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Page</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+
+<body id="content" class="bg-dark" onload="checkSessions()">
+
+    <div class="container-fluid text-light">
+        <h1 style="text-align: center; padding: 30px;"><em>Welcome to the Employee Reimbursement System</h1>
+        <span ><strong>Employee ID: </strong></span>
+        <span id="userId" ></span><br>
+        <span ><strong>Employee Name: </strong></span>
+        <span id="userName" style="width: 12px;"><strong></strong></span><br>
+        <span ><strong>Role: Manager</strong></span>
+    </div>
+
+  
+      <div class="container-fluid text-light">
+          
+          <div class="row justify-content-center text-center">
+            <h2>View Reimbursements</h2>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              
+                  <select name="status" id="status" onchange="findStatus()">
+                      <option value="all">All Requests</option>
+                      <option value="pending">Pending Request</option>
+                  </select>
+              
+              <br>
+              <br>
+            </div>
+          </div>
+            <table class="table table-light">
+              <thead>
+                <tr id="statusTable">
+                    <th scope="col-1">ID: </th>
+                    <th scope="col-1">Amount: $</th>
+                    <th scope="col-1">Date Submitted: </th>
+                    <th scope="col-1">Date Resolved: </th>
+                    <th scope="col-4">Description: </th>
+                    <th scope="col-1">Author: </th>
+                    <th scope="col-1">Resolver: </th>
+                    <th scope="col-1">Status: </th>
+                    <th scope="col-1">Type: </th>
+                  </tr>
+              </thead>
+              <tbody id="reimbStatusTable">
+                
+              </tbody>
+            </table>
+            <br>
+      </div>
+
+
+      <div class="container-fluid text-light">
+            <h5 id="appprove-reimbursement">Approve a Reimbursement</h5>
+            <div>
+              <form class="form-control" id="approve_form" method="post">
+                <div class="row">
+                  <label class="col-4" for="reimb_id">Reimbursement ID</label>
+                  <input class="col-8" type="number" id="reimb_id_r">
+                </div>
+                <br>
+               
+                </form>
+                <div class="submit-button">
+                    <button type="button" class="btn btn-primary" id="approve">Submit</button>
+                </div>
+            </div>
+        <br>
+      </div>
+
+
+      <div class="container-fluid text-light">
+              <h5 id="deny-reimbursement">Deny a Reimbursement</h5>
+                <div>
+                    <form class="form-control" id="deny-form" method="post">
+                    <div class="row">
+                        <label class="col-4" for="reimb_id">Reimbursement ID:</label>
+                        <input class="col-8" type="number" id="reimb_id_d">
+                    </div>
+                    <br>
+                    
+                    </form>
+                    <div class="submit-button">
+                        <button type="button" class="btn btn-primary" id="deny">Submit</button>
+                    </div>
+                </div>
+            <br>
+        </div>
+      
+
+
+      <div>
+        <button id="logoutButton" class="btn btn-danger">Logout</button>
+      </div>
+
+      <script src="./manager.js"></script>
+</body>
+</html>
